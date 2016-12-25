@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:lorem/lorem.dart';
 import 'package:angular2/core.dart';
-import 'package:angular2_dart_asset_service/src/structure/article_content.dart';
 import 'package:angular2_dart_asset_service/src/asset/content/content_service.dart';
 
 @Injectable()
@@ -12,11 +11,11 @@ class PlaceholderContentService implements ContentService {
   final Lorem lorem = new Lorem();
 
   @override
-  Future<ArticleContent> getContent(String id) async {
+  Future<String> getContent(String id) async {
     final String content = await new Future<String>.delayed(
         new Duration(milliseconds: _rnd.nextInt(1500)), () =>
         _generateSampleContent());
-    return new ArticleContent(id, content);
+    return content;
   }
 
   String _generateSampleContent() {

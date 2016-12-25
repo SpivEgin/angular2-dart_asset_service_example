@@ -2,7 +2,6 @@ import '../nav/photo.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/security.dart';
 import 'package:angular2/router.dart';
-import 'package:angular2_dart_asset_service/src/structure/article_content.dart';
 import 'package:angular2_dart_asset_service/src/asset/content/content_service.dart';
 import 'package:angular2_dart_asset_service/src/asset/photo/photo_service.dart';
 import 'package:angular2_dart_asset_service/src/structure/site_structure_service.dart';
@@ -46,10 +45,10 @@ class ArticleComponent implements OnInit, CanReuse {
 
   void _getContent(Article article) {
     // load content
-    _contentService.getContent(article.id).then((ArticleContent c) {
+    _contentService.getContent(article.id).then((String content) {
       contents[article.id] =
           _trustService.bypassSecurityTrustHtml(
-              c.content); //we implicitly trust this content
+              content); //we implicitly trust this content
     });
     if (article.photoId != null) {
       // load photos
