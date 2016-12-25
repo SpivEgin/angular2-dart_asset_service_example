@@ -1,0 +1,33 @@
+:host {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.display-mode {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: .5rem;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align:center;
+    background: #848484;
+    padding: 1rem 2rem .5rem;
+}
+
+nav a {
+    padding: .5rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    min-width: 6em;
+}
+
+nav a.router-link-active {
+    border-bottom: 5px solid #333;
+}
