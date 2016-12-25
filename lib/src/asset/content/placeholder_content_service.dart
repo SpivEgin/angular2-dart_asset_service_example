@@ -13,7 +13,7 @@ class PlaceholderContentService implements ContentService {
   @override
   Future<String> getContent(String id) async {
     final String content = await new Future<String>.delayed(
-        new Duration(milliseconds: _rnd.nextInt(1500)), () =>
+        new Duration(milliseconds: _rnd.nextInt(maxDelay)), () =>
         _generateSampleContent());
     return content;
   }
