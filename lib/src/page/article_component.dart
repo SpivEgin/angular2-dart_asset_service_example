@@ -13,9 +13,7 @@ import 'package:angular2_dart_asset_service/src/structure/article.dart';
     templateUrl: 'article_component.html',
     encapsulation: ViewEncapsulation
         .None, /* easier styling of innerHTML content */
-    directives: const <dynamic>[
-      SafeInnerHtmlDirective,
-    ],
+    directives: const <dynamic>[SafeInnerHtmlDirective],
     providers: const <dynamic>[SiteStructureService]
 )
 class ArticleComponent implements OnInit, CanReuse {
@@ -25,16 +23,11 @@ class ArticleComponent implements OnInit, CanReuse {
   final ContentService _contentService;
   final PhotoService _photoService;
   final RouteData _routeData;
-  final DomSanitizationService _trustService;
   String flowDirection = "row";
+  Map<String, SafeHtml> contents = <String, SafeHtml>{};
+  final DomSanitizationService _trustService;
 
-  Map<String, SafeHtml> contents = <String,SafeHtml>{};
-  Map<String, Photo> photos = <String,Photo>{};
-
-  List<Article> get articles =>
-      _struct
-          .getTopLevelItem(pageId)
-          .articles;
+  Map<String, Photo> photos = <String, Photo>{};
 
 
   ArticleComponent(this._struct,
@@ -58,18 +51,23 @@ class ArticleComponent implements OnInit, CanReuse {
     }
   }
 
-  toggleFlowDirection() {
+  List<Article> get articles =>
+      _struct
+          .getTopLevelItem(pageId)
+          .articles;
+
+  void toggleFlowDirection() {
     flowDirection = flowDirection == "row" ? "column" : "row";
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     pageId = _routeData.data['id'];
     articles.forEach(_getContent);
   }
 
   @override //we can reuse only if activated by the same route
-  routerCanReuse(ComponentInstruction nextInstruction,
+  bool routerCanReuse(ComponentInstruction nextInstruction,
       ComponentInstruction prevInstruction) =>
       prevInstruction?.routeName == nextInstruction?.routeName;
 

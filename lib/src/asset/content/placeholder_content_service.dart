@@ -28,11 +28,11 @@ class PlaceholderContentService implements ContentService {
   }
 
   String _rndSection({int headerLength: 5, int minPars: 2, int maxPars: 5}) {
-    final StringBuffer sb = new StringBuffer()
-      ..writeln("<h2>${lorem.createSentence(
-          sentenceLength: headerLength)}</h2>")..writeln(
-          "<p>${lorem.createParagraph(
-              numSentences: minPars + _rnd.nextInt(maxPars - minPars))}</p>");
+    final StringBuffer sb = new StringBuffer();
+    sb.writeln(
+        "<h2>${lorem.createSentence(sentenceLength: headerLength)}</h2>");
+    sb.writeln("<p>${lorem.createParagraph(
+        numSentences: minPars + _rnd.nextInt(maxPars - minPars))}</p>");
     return sb.toString();
   }
 
