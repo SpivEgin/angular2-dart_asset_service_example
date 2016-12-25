@@ -1,19 +1,11 @@
 <a class="display-mode" (click)="toggleFlowDirection()">Display Mode: {{flowDirection}}</a>
 <div class="content-list" [class.flow-column]="flowDirection == 'column'">
 
-  <div *ngFor="let article of articles"
-       class="content-item"
-       [class.loading]="contents[article.id] == null">
+  <div *ngFor="let article of articles" class="content-item">
     <h2>{{article.name}}</h2>
-    <figure *ngIf="photos[article.id] != null">
-      <img *ngIf="photos[article.id] != null" src="{{photos[article.id].url}}">
-      <figcaption *ngIf="photos[article.id].attribution.attributionRequired">
-        {{photos[article.id].attribution.attributionText}}
-      </figcaption>
-    </figure>
 
     <div class="content-html">
-      <div [safeInnerHtml]="contents[article.id]"></div>
+      <div>Article content goes here</div>
     </div>
   </div>
 </div>

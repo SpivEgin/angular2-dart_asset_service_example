@@ -1,10 +1,5 @@
-import '../nav/photo.dart';
 import 'package:angular2/core.dart';
-import 'package:angular2/security.dart';
 import 'package:angular2/router.dart';
-import 'package:angular2_dart_asset_service/src/structure/article_content.dart';
-import 'package:angular2_dart_asset_service/src/asset/content/content_service.dart';
-import 'package:angular2_dart_asset_service/src/asset/photo/photo_service.dart';
 import 'package:angular2_dart_asset_service/src/structure/site_structure_service.dart';
 import 'package:angular2_dart_asset_service/src/structure/article.dart';
 
@@ -12,25 +7,15 @@ import 'package:angular2_dart_asset_service/src/structure/article.dart';
     selector: 'my-article',
     styleUrls: const <String>['article_component.css'],
     templateUrl: 'article_component.html',
-    encapsulation: ViewEncapsulation
-        .None, /* easier styling of innerHTML content */
-    directives: const <dynamic>[
-      SafeInnerHtmlDirective,
-    ],
+    directives: const <dynamic>[],
     providers: const <dynamic>[SiteStructureService]
 )
 class ArticleComponent implements OnInit, CanReuse {
   String pageId;
 
   final SiteStructureService _struct;
-  final ContentService _contentService;
-  final PhotoService _photoService;
   final RouteData _routeData;
-  final DomSanitizationService _trustService;
   String flowDirection = "row";
-
-  Map<String, SafeHtml> contents = <String,SafeHtml>{};
-  Map<String, Photo> photos = <String,Photo>{};
 
   List<Article> get articles =>
       _struct
@@ -38,26 +23,8 @@ class ArticleComponent implements OnInit, CanReuse {
           .articles;
 
 
-  ArticleComponent(this._struct,
-      this._contentService,
-      this._photoService,
-      this._trustService,
-      this._routeData);
+  ArticleComponent(this._struct, this._routeData);
 
-  void _getContent(Article article) {
-    // load content
-    _contentService.getContent(article.id).then((ArticleContent c) {
-      contents[article.id] =
-          _trustService.bypassSecurityTrustHtml(
-              c.content); //we implicitly trust this content
-    });
-    if (article.photoId != null) {
-      // load photos
-      _photoService.getPhoto(article.photoId).then((Photo p) {
-        photos[article.id] = p;
-      });
-    }
-  }
 
   toggleFlowDirection() {
     flowDirection = flowDirection == "row" ? "column" : "row";
@@ -66,7 +33,6 @@ class ArticleComponent implements OnInit, CanReuse {
   @override
   ngOnInit() {
     pageId = _routeData.data['id'];
-    articles.forEach(_getContent);
   }
 
   @override //we can reuse only if activated by the same route

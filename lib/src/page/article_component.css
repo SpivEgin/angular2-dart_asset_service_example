@@ -50,15 +50,6 @@
     text-align:right;
 }
 
-.content-item.loading {
-    color: #dadada;
-    background: #999;
-}
-
-.content-item.loading > .content-html::before {
-    content: "Loading";
-}
-
 /* Styles for included content; enabled by ViewEncapsulation.None */
 .content-item h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
