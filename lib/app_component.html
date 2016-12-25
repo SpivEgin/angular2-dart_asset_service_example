@@ -1,0 +1,9 @@
+<h1>My Article Reader App</h1>
+
+<nav>
+  <a *ngFor="let nav of navItems" [routerLink]="[nav.routeName]">{{nav.name}}</a>
+</nav>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
